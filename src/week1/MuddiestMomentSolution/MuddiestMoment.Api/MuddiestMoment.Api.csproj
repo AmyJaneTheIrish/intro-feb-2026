@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Student\Endpoints\" />
+  </ItemGroup>
+
 </Project>
