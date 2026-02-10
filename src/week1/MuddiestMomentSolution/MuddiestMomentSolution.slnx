@@ -2,4 +2,5 @@
   <Project Path="AppHost/AppHost.csproj" />
   <Project Path="Gateway.Api/Gateway.Api.csproj" />
   <Project Path="MuddiestMoment.Api/MuddiestMoment.Api.csproj" />
+  <Project Path="ServiceDefaults/ServiceDefaults.csproj" Id="01423546-6548-4694-9d22-1d5f19af9de6" />
 </Solution>
