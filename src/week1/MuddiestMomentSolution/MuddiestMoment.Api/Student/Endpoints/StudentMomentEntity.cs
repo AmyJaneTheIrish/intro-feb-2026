@@ -8,5 +8,6 @@ public class StudentMomentEntity
     public string Description { get; set; } = string.Empty;
     public string AddedBy { get; set; } = string.Empty;
     public DateTimeOffset CreatedOn { get; set; }
+    public bool IsAnswered { get; set; } = false;
 }
 

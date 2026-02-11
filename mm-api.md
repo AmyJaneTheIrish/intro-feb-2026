@@ -64,6 +64,9 @@ GET https://localhost:1337/student/moments
 Authorization: why
 ```
 
+```http
+DELETE https://localhost:1337/student/moments/<user id>
+```
 
 ```
 200 Ok

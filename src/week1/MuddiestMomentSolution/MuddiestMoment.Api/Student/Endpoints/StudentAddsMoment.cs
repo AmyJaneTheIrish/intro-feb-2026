@@ -14,7 +14,7 @@ namespace MuddiestMoment.Api.Student.Endpoints;
                 Title = request.Title,
                 Description = request.Description,
                 CreatedOn = DateTimeOffset.UtcNow,
-                AddedBy = "fake user"
+                AddedBy = "fake user"   // TODO: We need the ID of the actual user that made this request
             };
 
             // What we're missing - saving it to the db

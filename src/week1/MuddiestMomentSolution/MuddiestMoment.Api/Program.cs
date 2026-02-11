@@ -31,6 +31,7 @@ builder.Services.AddValidation();   // opting in to services to handle some stuf
 var app = builder.Build();
 // Everything here is setting up how we actually handle incoming request & write responses
 
+app.MapOpenApi();
 // Add the code I am about the write that allows us to handle POST to /student/moments
 
 app.MapStudentEndpoints(); // More explicit - means more "intention revealing"
