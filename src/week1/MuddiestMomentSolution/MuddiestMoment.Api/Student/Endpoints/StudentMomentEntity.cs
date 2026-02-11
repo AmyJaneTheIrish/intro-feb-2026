@@ -1,8 +1,7 @@
-﻿using System.Diagnostics.Eventing.Reader;
+﻿namespace MuddiestMoment.Api.Student.Endpoints;
 
-namespace MuddiestMoment.Api.Student.Endpoints;
-
-public record StudentMomentResponseModel
+// Adding this in below... we're talking about dbs
+public class StudentMomentEntity
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -10,5 +9,4 @@ public record StudentMomentResponseModel
     public string AddedBy { get; set; } = string.Empty;
     public DateTimeOffset CreatedOn { get; set; }
 }
-
 

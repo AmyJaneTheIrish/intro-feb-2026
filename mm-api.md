@@ -43,8 +43,8 @@ Content-Type: application/json
 Authorization: Bearer ???? (Fake this for while)
 
 {
-    "title": "HTTP",
-    "description": "More On Resources, plz."
+    "title": "Database stuff",
+    "description": "What are you talking about"
 }
 
 ```
@@ -59,9 +59,8 @@ Authorization: Bearer ???? (Fake this for while)
     - Any success status code - 200-299
         - 200 ok. With a  body `:)`
 
-
 ```http
-GET https://localhost:7059/student/moments 
+GET https://localhost:1337/student/moments 
 Authorization: why
 ```
 

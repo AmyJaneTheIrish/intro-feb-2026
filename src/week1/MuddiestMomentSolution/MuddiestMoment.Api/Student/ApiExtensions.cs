@@ -14,6 +14,7 @@ public static class ApiExtensions
             var group = endpoints.MapGroup("/student/moments");
             // If any http post methods come in for /student/moments run this function
             group.MapPost("", StudentAddsMoment.AddMoment);
+            group.MapGet("", StudentGetsListOfSavedMoments.GetAllMomentsForStudent);
 
             return group;
         }
