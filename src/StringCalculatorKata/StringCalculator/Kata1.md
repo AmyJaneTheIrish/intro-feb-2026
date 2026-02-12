@@ -46,6 +46,7 @@ The idea is that this method, when given a string, has some rules on how to conv
 5. We can "mix" delimeters. Where before you could only separate numbers with a comma, now you can use a newline. (in C#, a newline is represented with the `\n` escape sequence).
 	- `Add("1\n2") => 3`
 	- `Add("1\n2,3") => 6`
+"At least get through 5"
 6. Custom delimeters. Users can use any single letter delimeter they'd like, and they indicate it by passing an argument to add in the following form:
 	- If they want to use an hash/pound/octothorpe as their delimeter, they would pass:
 		- `Add("//#\n1#2#3") => 6`
