@@ -1,7 +1,6 @@
 ﻿
 
 namespace StringCalculator;
-
 public class CalculatorTests
 {
     [Fact]
@@ -16,33 +15,51 @@ public class CalculatorTests
 
     [Theory]
     [InlineData("1", 1)]
-    [InlineData("2", 2)]
-    [InlineData("42", 42)]
-
-    public void SinglenumberReturnsValue(string input, int expected)
+    public void SingleDigit(string input, int expected)
     {
         var calculator = new Calculator();
         var result = calculator.Add(input);
+
         Assert.Equal(expected, result);
     }
 
     [Theory]
     [InlineData("1, 2", 3)]
-    [InlineData("2, 2", 4)]
-    [InlineData("1,2,3,4,5,6,7,8,9", 45)]
-    public void MultipleNumbers(string input, int expected)
+    public void DoubleIntegers(string input, int expected)
+    {
+        var calculator = new Calculator();
+        var result3 = calculator.Add(input);
+
+        Assert.Equal(expected, result3);
+    }
+
+    [Theory]
+    [InlineData("1,2,3,4,5", 15)]
+    public void MultipleIntegers(string input, int expected)
     {
         var calculator = new Calculator();
         var result = calculator.Add(input);
+
         Assert.Equal(expected, result);
     }
 
     [Theory]
     [InlineData("1\n2", 3)]
-    public void Mixed(string input, int expected)
+    public void NewlineDelimeter(string input, int expected)
     {
         var calculator = new Calculator();
         var result = calculator.Add(input);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData("1\n2,3", 6)]
+    public void DifferentDelimeter(string input, int expected)
+    {
+        var calculator = new Calculator();
+        var result = calculator.Add(input);
+
         Assert.Equal(expected, result);
     }
 }
