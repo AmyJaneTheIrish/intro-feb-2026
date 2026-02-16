@@ -8,7 +8,8 @@ public class CalculatorTests
 
     public CalculatorTests()
     {
-        _calculator = new Calculator();
+        _calculator = new Calculator(new DummyLogger(),
+            Substitute.For<INotifyTheHelpDesk>());
     }
     [Fact]
     public void EmptyStringReturnsZero()
@@ -56,4 +57,13 @@ public class CalculatorTests
 
 
 
+}
+
+
+public class DummyLogger : ILogger
+{
+    public void LogAddResults(string results)
+    {
+       
+    }
 }
