@@ -1,7 +1,7 @@
 <Solution>
   <Folder Name="/MuddiestMoment/">
     <Project Path="MuddiestMoment.Api/MuddiestMoment.Api.csproj" />
-    <Project Path="MuddiestMomentTests/MuddiestMomentTests.csproj" Id="d46955b6-87fc-43bb-bca7-7ef4184aea72" />
+    <Project Path="MuddiestMoment.Tests/MuddiestMoment.Tests.csproj" Id="2919f912-8291-4268-bd0b-da76007939e0" />
   </Folder>
   <Project Path="AppHost/AppHost.csproj" />
   <Project Path="Gateway.Api/Gateway.Api.csproj" />

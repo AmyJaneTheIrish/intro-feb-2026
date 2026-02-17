@@ -3,7 +3,6 @@
 namespace StringCalculator;
 public class CalculatorTests
 {
-
     private Calculator _calculator;
 
     public CalculatorTests()
@@ -14,10 +13,7 @@ public class CalculatorTests
     [Fact]
     public void EmptyStringReturnsZero()
     {
-       
-
         var result = _calculator.Add("");
-
         Assert.Equal(0, result);
     }
 
@@ -28,7 +24,6 @@ public class CalculatorTests
     
     public void SingleNumberReturnsValue(string input, int expected)
     {
-      
         var result = _calculator.Add(input);
         Assert.Equal(expected, result);
     }
@@ -39,24 +34,19 @@ public class CalculatorTests
     [InlineData("1,2,3,4,5,6,7,8,9", 45)]
     public void MultipleNumbers(string input, int expected)
     {
-
         var result = _calculator.Add(input);
         Assert.Equal(expected, result);
     }
 
     [Theory]
     [InlineData("1\n2", 3)]
-    
-    
+
+
     public void Mixed(string input, int expected)
     {
-
         var result = _calculator.Add(input);
         Assert.Equal(expected, result);
     }
-
-
-
 }
 
 
