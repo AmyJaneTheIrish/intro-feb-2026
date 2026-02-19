@@ -13,7 +13,6 @@ const fakeTodos = [
   },
 ];
 export const handlers: HttpHandler[] = [
-  ...questionHandler,
   http.get('https://jsonplaceholder.typicode.com/todos', async () => {
     await delay(); // 200ms delay to simulate network latency
     return HttpResponse.json(fakeTodos);

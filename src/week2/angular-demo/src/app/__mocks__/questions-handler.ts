@@ -25,8 +25,8 @@ const fakeQuestions = [
 ];
 
 export default [
-  http.get('/api/questions', async () => {
-    await delay();
-    return HttpResponse.json(fakeQuestions);
-  }),
+  //   http.get('/api/questions', async () => {
+  //     await delay();
+  //     return HttpResponse.json(fakeQuestions);
+  //   }),
 ];
