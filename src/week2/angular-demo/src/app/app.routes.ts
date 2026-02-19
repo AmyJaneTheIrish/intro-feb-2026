@@ -13,7 +13,15 @@ export const routes: Routes = [
     component: Profile,
   },
   {
+    path: 'questions',
+    loadChildren: () => import('./areas/questions/questions.routes').then((m) => m.QuestionRoutes),
+  },
+  {
     path: '',
     component: Home,
+  },
+  {
+    path: 'basics',
+    loadChildren: () => import('./areas/basics/basics.routes').then((m) => m.BasicsRoutes),
   },
 ];
