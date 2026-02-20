@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 
 import {
   FormField,
@@ -9,10 +9,10 @@ import {
   validateStandardSchema,
   submit,
 } from '@angular/forms/signals';
-import * as z from 'zod';
 
-type QuestionSubmissionItem = z.infer<typeof zQuestionSubmissionItem>;
 import { zQuestionSubmissionItem } from '../../shared/api/zod.gen';
+import { QuestionStore } from '../question-store';
+import { QuestionSubmissionItem } from '../types';
 
 @Component({
   selector: 'app-questions-ask',
@@ -43,16 +43,16 @@ import { zQuestionSubmissionItem } from '../../shared/api/zod.gen';
           ><span class="label-text font-medium">Give us the deets</span>
         </label>
         <textarea
-          [formField]="form.content"
+          [formField]="form.question"
           class="textarea"
           placeholder="Type here"
           id="content"
         ></textarea>
         <p class="label">Description of your question</p>
 
-        @if (form.content().invalid() && form.content().touched()) {
+        @if (form.question().invalid() && form.question().touched()) {
           <div class="alert alert-error">
-            @for (error of form.content().errors(); track error) {
+            @for (error of form.question().errors(); track error) {
               <p>{{ error.message }}</p>
             }
           </div>
@@ -75,17 +75,19 @@ import { zQuestionSubmissionItem } from '../../shared/api/zod.gen';
   `,
 })
 export class Ask {
+  store = inject(QuestionStore);
   handleSubmit(event: SubmitEvent) {
     event.preventDefault();
     submit(this.form, async (f) => {
       const value = f().value();
-      console.log('Form submitted with value:', value);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await this.store.addQuestion(value);
+
+      f().reset();
     });
   }
   model = signal<QuestionSubmissionItem>({
     title: '',
-    content: '',
+    question: '',
     priority: 0,
   });
 
@@ -103,6 +105,6 @@ export class Ask {
     // Jeff showed this, don't think he just "knew" how to do this. He didn't. This was about 6 hours of frustration.
 
     required(schema.title);
-    required(schema.content);
+    required(schema.question);
   });
 }
