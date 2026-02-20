@@ -1,11 +1,12 @@
 import { httpResource } from '@angular/common/http';
 import { signalStore, withHooks, withProps } from '@ngrx/signals';
-
-import { GetQuestionsResponse } from '../shared/api';
+import * as z from 'zod';
+import { zGetQuestionsResponse } from '../shared/api/zod.gen';
+type GetQuestionResponse = z.infer<typeof zGetQuestionsResponse>;
 export const QuestionStore = signalStore(
   withProps(() => {
     return {
-      questionResource: httpResource<GetQuestionsResponse>(() => '/api/questions'),
+      questionResource: httpResource<GetQuestionResponse>(() => '/api/questions'),
     };
   }),
   withHooks({

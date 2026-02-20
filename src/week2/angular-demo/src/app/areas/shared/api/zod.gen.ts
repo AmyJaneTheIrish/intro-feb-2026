@@ -3,33 +3,33 @@
 import * as z from 'zod';
 
 export const zQuestionSubmissionItem = z.object({
-    title: z.string().min(5).max(50),
-    content: z.string().min(30).max(500),
-    priority: z.union([
-        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
-        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
-    ])
+  title: z.string().min(5).max(50),
+  content: z.string().min(30).max(500),
+  priority: z.union([
+    z
+      .int()
+      .min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' })
+      .max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
+    z.string().regex(/^-?(?:0|[1-9]\d*)$/),
+  ]),
 });
 
 export const zSubmittedAnswer = z.object({
-    id: z.optional(z.uuid()),
-    content: z.optional(z.string())
+  id: z.optional(z.uuid()),
+  content: z.optional(z.string()),
 });
 
 export const zQuestionListItem = z.object({
-    id: z.optional(z.uuid()),
-    title: z.optional(z.string()),
-    content: z.optional(z.string()),
-    submittedAnswers: z.optional(z.union([
-        z.null(),
-        z.array(zSubmittedAnswer)
-    ]))
+  id: z.optional(z.uuid()),
+  title: z.optional(z.string()),
+  content: z.optional(z.string()),
+  submittedAnswers: z.optional(z.union([z.null(), z.array(zSubmittedAnswer)])),
 });
 
 export const zGetQuestionsData = z.object({
-    body: z.optional(z.never()),
-    path: z.optional(z.never()),
-    query: z.optional(z.never())
+  body: z.optional(z.never()),
+  path: z.optional(z.never()),
+  query: z.optional(z.never()),
 });
 
 /**
@@ -38,7 +38,7 @@ export const zGetQuestionsData = z.object({
 export const zGetQuestionsResponse = z.array(zQuestionListItem);
 
 export const zPostQuestionsData = z.object({
-    body: zQuestionSubmissionItem,
-    path: z.optional(z.never()),
-    query: z.optional(z.never())
+  body: zQuestionSubmissionItem,
+  path: z.optional(z.never()),
+  query: z.optional(z.never()),
 });

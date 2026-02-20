@@ -7,9 +7,11 @@ import {
   minLength,
   maxLength,
   validateStandardSchema,
+  submit,
 } from '@angular/forms/signals';
+import * as z from 'zod';
 
-import { QuestionSubmissionItem } from '../../shared/api';
+type QuestionSubmissionItem = z.infer<typeof zQuestionSubmissionItem>;
 import { zQuestionSubmissionItem } from '../../shared/api/zod.gen';
 
 @Component({
@@ -19,34 +21,67 @@ import { zQuestionSubmissionItem } from '../../shared/api/zod.gen';
   template: `
     <form (submit)="handleSubmit($event)" novalidate>
       <fieldset class="fieldset">
-        <legend class="fieldset-legend">Title of the Question?</legend>
-        <input [formField]="form.title" type="text" class="input" placeholder="Type here" />
+        <legend class="fieldset-legend">What's your question?</legend>
+        <label class="label" for="title"><span class="label-text font-medium">Title</span> </label>
+        <input
+          [formField]="form.title"
+          type="text"
+          class="input input-bordered"
+          placeholder="Type here"
+          id="title"
+        />
+
         @if (form.title().invalid() && form.title().touched()) {
           <div class="alert alert-error">
-            <p>Problems</p>
+            @for (error of form.title().errors(); track error) {
+              <p>{{ error.message }}</p>
+            }
           </div>
         }
-        <p class="label">Short description</p>
+
+        <label class="label" for="content"
+          ><span class="label-text font-medium">Give us the deets</span>
+        </label>
+        <textarea
+          [formField]="form.content"
+          class="textarea"
+          placeholder="Type here"
+          id="content"
+        ></textarea>
+        <p class="label">Description of your question</p>
+
+        @if (form.content().invalid() && form.content().touched()) {
+          <div class="alert alert-error">
+            @for (error of form.content().errors(); track error) {
+              <p>{{ error.message }}</p>
+            }
+          </div>
+        }
       </fieldset>
-      <fieldset class="fieldset">
-        <legend class="fieldset-legend">Description</legend>
-        <textarea [formField]="form.content" class="textarea" placeholder="Type here"></textarea>
-        <p class="label">Bigger description of your question</p>
-      </fieldset>
-      <button type="submit" class="btn btn-primary">Submit Question</button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [attr.aria-disabled]="form().invalid() || form().submitting()"
+      >
+        Submit Question
+      </button>
     </form>
   `,
-  styles: ``,
+  styles: `
+    button[aria-disabled='true'] {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  `,
 })
 export class Ask {
   handleSubmit(event: SubmitEvent) {
     event.preventDefault();
-    console.log(this.model());
-    if (this.form().valid()) {
-      // send the form to the server
-    } else {
-      // show the errors and stuff.
-    }
+    submit(this.form, async (f) => {
+      const value = f().value();
+      console.log('Form submitted with value:', value);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    });
   }
   model = signal<QuestionSubmissionItem>({
     title: '',
@@ -64,5 +99,10 @@ export class Ask {
   // });
   form = form(this.model, (schema) => {
     validateStandardSchema(schema, zQuestionSubmissionItem);
+    // see styles.css and the input[required]::after rule - weird, but schema is different than form validation.
+    // Jeff showed this, don't think he just "knew" how to do this. He didn't. This was about 6 hours of frustration.
+
+    required(schema.title);
+    required(schema.content);
   });
 }
